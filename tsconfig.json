@@ -12,7 +12,18 @@
     "esModuleInterop": true,
     "lib": ["ESNext", "DOM"],
     "skipLibCheck": true,
-    "noEmit": true
+    "noEmit": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"],
+      "@shared/*": ["src/slices/shared/*"],
+      "@entities/*": ["src/slices/entities/*"],
+      "@modules/*": ["src/slices/modules/*"],
+      "@features/*": ["src/slices/features/*"],
+      "@widgets/*": ["src/slices/widgets/*"],
+      "@pages/*": ["src/slices/pages/*"],
+      "@app/*": ["src/slices/app/*"]
+    }
   },
   "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.svelte"],
   "references": [{ "path": "./tsconfig.node.json" }]

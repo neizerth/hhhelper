@@ -1,6 +1,10 @@
-import { defineConfig } from "vite";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 import { svelte } from "@sveltejs/vite-plugin-svelte";
+import { defineConfig } from "vite";
 import webExtension, { readJsonFile } from "vite-plugin-web-extension";
+
+const rootDir = path.dirname(fileURLToPath(import.meta.url));
 
 function generateManifest() {
   const manifest = readJsonFile("src/manifest.json");
@@ -15,11 +19,33 @@ function generateManifest() {
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  resolve: {
+    alias: {
+      "@": path.resolve(rootDir, "src"),
+      "@shared": path.resolve(rootDir, "src/slices/shared"),
+      "@entities": path.resolve(rootDir, "src/slices/entities"),
+      "@modules": path.resolve(rootDir, "src/slices/modules"),
+      "@features": path.resolve(rootDir, "src/slices/features"),
+      "@widgets": path.resolve(rootDir, "src/slices/widgets"),
+      "@pages": path.resolve(rootDir, "src/slices/pages"),
+    },
+    ...(process.env.VITEST
+      ? { conditions: ["browser"] }
+      : { conditions: ["svelte", "browser", "module", "import"] }),
+  },
   plugins: [
     svelte(),
-    webExtension({
-      manifest: generateManifest,
-      watchFilePaths: ["package.json", "manifest.json"],
-    }),
-  ],
+    !process.env.VITEST &&
+      webExtension({
+        manifest: generateManifest,
+        watchFilePaths: ["package.json", "src/manifest.json"],
+        disableAutoLaunch: process.env.VITE_EXTENSION_AUTO_LAUNCH !== "true",
+      }),
+  ].filter(Boolean),
+  test: {
+    environment: "jsdom",
+    setupFiles: ["./src/test/setup.ts"],
+    include: ["src/**/*.{test,spec}.{js,ts}"],
+    clearMocks: true,
+  },
 });

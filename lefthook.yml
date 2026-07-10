@@ -1,0 +1,10 @@
+pre-commit:
+  commands:
+    biome:
+      glob: "*.{js,ts,json,jsonc,svelte}"
+      run: pnpm exec biome check --write --no-errors-on-unmatched --files-ignore-unknown=true --staged
+
+commit-msg:
+  commands:
+    commitlint:
+      run: pnpm exec commitlint --edit {1}

@@ -1,0 +1,11 @@
+html,
+body {
+  background-color: #fff;
+  color: #000;
+}
+a {
+  color: #40b3ff;
+}
+a:visited {
+  color: rgb(0, 124.8442408377, 207.35);
+}

@@ -10,6 +10,10 @@ const DIALOG_SELECTOR = "[role='dialog']";
 const SEARCH_INPUT_SELECTOR = "input[data-qa='tree-selector-search-input']";
 const TREE_SELECTOR = "[role='tree']";
 const SAVE_BUTTON_SELECTOR = "[data-qa='primary-actions'] button";
+const CLOSE_BUTTON_SELECTOR = "[data-qa='modal-header'] button";
+
+const isDisabled = (button: HTMLButtonElement) =>
+  button.disabled || button.getAttribute("aria-disabled") === "true";
 
 const findCheckbox = (dialog: Element, value: string) => {
   const tree = dialog.querySelector(TREE_SELECTOR);
@@ -75,6 +79,30 @@ export class CompanyScopeSelect
       checkbox?.fill(true);
     }
 
-    dialog.querySelector<HTMLButtonElement>(SAVE_BUTTON_SELECTOR)?.click();
+    const searchInput = dialog.querySelector<HTMLInputElement>(
+      SEARCH_INPUT_SELECTOR,
+    );
+    if (searchInput) {
+      fillTextControlValue(searchInput, "");
+    }
+
+    const saveButton =
+      dialog.querySelector<HTMLButtonElement>(SAVE_BUTTON_SELECTOR);
+    if (saveButton && !isDisabled(saveButton)) {
+      saveButton.click();
+    } else {
+      dialog.querySelector<HTMLButtonElement>(CLOSE_BUTTON_SELECTOR)?.click();
+    }
+
+    await waitFor(() => (dialog.isConnected ? null : true), { timeout: 500 });
+    if (dialog.isConnected) {
+      dialog.dispatchEvent(
+        new KeyboardEvent("keydown", {
+          key: "Escape",
+          code: "Escape",
+          bubbles: true,
+        }),
+      );
+    }
   }
 }

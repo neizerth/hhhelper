@@ -9,14 +9,23 @@
   const [loadValue, setValue] = useStorage("hhhelper:content");
 
   let value = $state("");
+  let ready = $state(false);
 
   void loadValue().then((content) => {
     value = content;
+    ready = true;
+  });
+
+  $effect(() => {
+    if (!ready) {
+      return;
+    }
+
+    void setValue(value);
   });
 
   const handleFill = () => {
     void fillActiveTab(value);
-    void setValue(value);
   };
 </script>
 

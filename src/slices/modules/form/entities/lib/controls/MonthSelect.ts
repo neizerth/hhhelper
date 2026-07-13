@@ -36,8 +36,13 @@ export class MonthSelect
     const option = Array.from(
       listbox.querySelectorAll<HTMLInputElement>(Radio.selector),
     )
-      .map((node) => new Radio(node))
-      .find((radio) => radio.label && equalsIgnoreCase(radio.label, value));
+      .map((node) => Radio.from(node))
+      .find(
+        (radio): radio is Radio =>
+          radio !== null &&
+          radio.label !== null &&
+          equalsIgnoreCase(radio.label, value),
+      );
 
     option?.fill(true);
   }

@@ -11,6 +11,14 @@ export class Radio
 {
   static selector = "input[type='radio']";
 
+  static from(node: Node): Radio | null {
+    if (!(node instanceof HTMLInputElement) || node.type !== "radio") {
+      return null;
+    }
+
+    return new Radio(node as RadioElement);
+  }
+
   get checked() {
     return this.node.checked;
   }

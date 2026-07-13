@@ -20,11 +20,7 @@ export const setNativeValue = (element: TextControl, value: string) => {
   const instanceSetter = getInstanceValueSetter(element);
   const prototypeSetter = getPrototypeValueSetter(element);
 
-  if (
-    instanceSetter &&
-    prototypeSetter &&
-    instanceSetter !== prototypeSetter
-  ) {
+  if (instanceSetter && prototypeSetter && instanceSetter !== prototypeSetter) {
     prototypeSetter.call(element, value);
     return;
   }

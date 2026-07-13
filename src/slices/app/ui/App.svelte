@@ -5,21 +5,13 @@
   import Paper, { Content } from "@smui/paper";
   import Textfield from "@smui/textfield";
   import TopAppBar, { Row, Section, Title } from "@smui/top-app-bar";
-  import { tick } from "svelte";
 
   const [loadValue, setValue] = useStorage("hhhelper:content");
 
   let value = $state("");
-  let textfield: Textfield | undefined = $state();
 
-  const syncTextfieldLayout = async () => {
-    await tick();
-    textfield?.layout();
-  };
-
-  void loadValue().then(async (content) => {
+  void loadValue().then((content) => {
     value = content;
-    await syncTextfieldLayout();
   });
 
   const handleFill = () => {
@@ -41,14 +33,12 @@
     <Content>
       <div class="actions">
         <Textfield
-          bind:this={textfield}
           bind:value
           textarea
-          variant="filled"
           label="Текст"
           fullwidth
           input$rows={10}
-          input$onblur={syncTextfieldLayout}
+          variant="outlined"
         />
 
         <Button variant="raised" color="primary" style="width: 100%;" onclick={handleFill}>

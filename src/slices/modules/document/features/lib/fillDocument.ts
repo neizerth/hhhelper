@@ -1,7 +1,11 @@
-import { MonthSelect, RegionSelect } from "@/slices/modules/form/entities/lib";
+import {
+  CompanyScopeSelect,
+  MonthSelect,
+  RegionSelect,
+} from "@/slices/modules/form/entities/lib";
 import { Checkbox, Input, TextArea } from "@/slices/modules/form/shared/lib";
 import { parseContent } from "@/slices/modules/form/shared/lib/content";
-import type { IFormControl } from "@/slices/modules/form/shared/model";
+import type { AnyFormControl } from "@/slices/modules/form/shared/model";
 import { equalsIgnoreCase } from "@/slices/shared/util";
 import { getDocumentControls } from "./documentControls";
 
@@ -10,11 +14,18 @@ type Options = {
   content: string;
 };
 
-const controls = [Input, TextArea, Checkbox, MonthSelect, RegionSelect];
+const controls = [
+  Input,
+  TextArea,
+  Checkbox,
+  MonthSelect,
+  RegionSelect,
+  CompanyScopeSelect,
+];
 
 export const fillDocument = async ({ document, content }: Options) => {
   const values = parseContent(content);
-  const used = new Set<IFormControl<any, any>>();
+  const used = new Set<AnyFormControl>();
 
   const findByLabel = (label: string) => {
     const documentControls = getDocumentControls({ document, controls });

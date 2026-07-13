@@ -1,15 +1,15 @@
 import type {
-  IFormControl,
-  IFormControlConstructor,
+  AnyFormControl,
+  AnyFormControlConstructor,
 } from "@/slices/modules/form/shared/model";
 import { queryAll } from "@/slices/shared/util";
 
 type Options = {
   document: Document;
-  controls: IFormControlConstructor<any, any>[];
+  controls: AnyFormControlConstructor[];
 };
 
-const cache = new WeakMap<Node, IFormControl<any, any>>();
+const cache = new WeakMap<Node, AnyFormControl>();
 
 export const getDocumentControls = (options: Options) => {
   const { document } = options;

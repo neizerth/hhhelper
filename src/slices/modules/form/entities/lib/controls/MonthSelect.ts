@@ -1,6 +1,7 @@
 import { equalsIgnoreCase, waitFor } from "@/slices/shared/util";
 import { Radio } from "../../../shared/lib/controls/Radio";
 import { Field } from "../../../shared/lib/Field";
+import { getTriggerLabel } from "../../../shared/lib/getTriggerLabel";
 import type { IFormControl } from "../../../shared/model";
 
 export class MonthSelect
@@ -15,7 +16,7 @@ export class MonthSelect
       return this.#label;
     }
 
-    this.#label = this.node.textContent?.replace(/\s+/g, " ").trim() ?? null;
+    this.#label = getTriggerLabel(this.node);
     return this.#label;
   }
 
@@ -46,5 +47,9 @@ export class MonthSelect
       );
 
     option?.fill(true);
+
+    if (this.node.getAttribute("aria-expanded") === "true") {
+      this.node.click();
+    }
   }
 }

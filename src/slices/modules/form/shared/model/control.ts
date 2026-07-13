@@ -9,6 +9,14 @@ export interface IFormControlConstructor<N extends Node, Value> {
   selector: string;
 }
 
+export type AnyFormControl = IFormControl<Node, unknown>;
+
+export type AnyFormControlConstructor = (new (
+  node: never,
+) => AnyFormControl) & {
+  selector: string;
+};
+
 export type IFormControlValidator<T extends Node> = (node: T) => boolean;
 
 export type ControlValueType = "boolean" | "text";

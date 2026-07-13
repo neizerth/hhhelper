@@ -1,6 +1,7 @@
 import { equalsIgnoreCase, waitFor } from "@/slices/shared/util";
 import { Radio } from "../../../shared/lib/controls/Radio";
 import { Field } from "../../../shared/lib/Field";
+import { getTriggerLabel } from "../../../shared/lib/getTriggerLabel";
 import { fillTextControlValue } from "../../../shared/lib/value";
 import type { IFormControl } from "../../../shared/model";
 
@@ -35,14 +36,15 @@ export class RegionSelect
   implements IFormControl<HTMLElement, string>
 {
   #label: string | null = null;
-  static selector = "[role='combobox'][aria-haspopup='dialog']";
+  static selector =
+    "[role='combobox'][data-qa='resume-editor-experience-area-input']";
 
   get label() {
     if (this.#label) {
       return this.#label;
     }
 
-    this.#label = this.node.textContent?.replace(/\s+/g, " ").trim() ?? null;
+    this.#label = getTriggerLabel(this.node);
     return this.#label;
   }
 
@@ -56,6 +58,7 @@ export class RegionSelect
     });
     if (directOption) {
       directOption.fill(true);
+      this.closeIfOpen();
       return;
     }
 
@@ -70,5 +73,12 @@ export class RegionSelect
 
     const option = await waitFor(() => findOption(value), { timeout: 5000 });
     option?.fill(true);
+    this.closeIfOpen();
+  }
+
+  private closeIfOpen() {
+    if (this.node.getAttribute("aria-expanded") === "true") {
+      this.node.click();
+    }
   }
 }

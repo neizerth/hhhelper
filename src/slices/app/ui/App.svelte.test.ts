@@ -6,9 +6,7 @@ describe("App", () => {
   it("renders fill action", () => {
     render(App);
 
-    expect(
-      screen.getByRole("heading", { level: 1, name: "HH Helper" }),
-    ).toBeInTheDocument();
+    expect(screen.getByText("HH Helper")).toBeInTheDocument();
     expect(
       screen.getByRole("button", { name: "Заполнить" }),
     ).toBeInTheDocument();

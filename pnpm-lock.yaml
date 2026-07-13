@@ -30,7 +30,13 @@ importers:
       '@smui/button':
         specifier: ^9.0.1
         version: 9.0.1
+      '@smui/paper':
+        specifier: ^9.0.1
+        version: 9.0.1
       '@smui/textfield':
+        specifier: ^9.0.1
+        version: 9.0.1
+      '@smui/top-app-bar':
         specifier: ^9.0.1
         version: 9.0.1
       '@sveltejs/vite-plugin-svelte':

@@ -80,17 +80,6 @@ const forceApplyValue = (element: TextControl, value: string) => {
 };
 
 export const fillTextControlValue = (element: TextControl, value: string) => {
-  console.log("[hhhelper debug] fillTextControlValue called", {
-    tag: element.tagName,
-    isConnected: element.isConnected,
-    currentValue: element.value,
-    newValue: value,
-    activeElement: document.activeElement,
-    hasTracker: Boolean((element as ValueTrackerElement)._valueTracker),
-    instanceSetter: Boolean(getInstanceValueSetter(element)),
-    prototypeSetter: Boolean(getPrototypeValueSetter(element)),
-  });
-
   if (!element.isConnected) {
     return;
   }
@@ -101,9 +90,4 @@ export const fillTextControlValue = (element: TextControl, value: string) => {
 
   forceApplyValue(element, value);
   element.dispatchEvent(new Event("change", { bubbles: true }));
-
-  console.log("[hhhelper debug] after fill", {
-    valueNow: element.value,
-    activeElementNow: document.activeElement,
-  });
 };

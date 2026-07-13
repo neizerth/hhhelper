@@ -1,12 +1,16 @@
 import type { IFormControl } from "../../model";
 import { Field } from "../Field";
 
-export type CheckNode = HTMLInputElement & { type: "checkbox" | "radio" };
+export type RadioElement = HTMLInputElement & {
+  type: "radio";
+};
 
-export class Checkbox
-  extends Field<CheckNode>
-  implements IFormControl<CheckNode, boolean>
+export class Radio
+  extends Field<RadioElement>
+  implements IFormControl<RadioElement, boolean>
 {
+  static selector = "input[type='radio']";
+
   get checked() {
     return this.node.checked;
   }
@@ -14,10 +18,6 @@ export class Checkbox
   get label() {
     const label = this.node.closest("label");
     return label?.textContent ?? null;
-  }
-
-  static is(node: Node): node is CheckNode {
-    return node instanceof HTMLInputElement && node.type === "checkbox";
   }
 
   fill(value: boolean) {

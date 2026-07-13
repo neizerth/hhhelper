@@ -1,7 +1,16 @@
 import browser from "webextension-polyfill";
 
-console.log("Hello from the background!");
+import {
+  reloadHhTabs,
+  startContentScriptLiveReload,
+} from "./background/liveReload";
 
-browser.runtime.onInstalled.addListener((details) => {
-  console.log("Extension installed:", details);
+if (import.meta.env.DEV) {
+  startContentScriptLiveReload();
+}
+
+browser.runtime.onInstalled.addListener(async (details) => {
+  if (import.meta.env.DEV && details.reason === "update") {
+    await reloadHhTabs();
+  }
 });

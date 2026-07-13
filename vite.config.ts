@@ -28,6 +28,7 @@ export default defineConfig({
       "@features": path.resolve(rootDir, "src/slices/features"),
       "@widgets": path.resolve(rootDir, "src/slices/widgets"),
       "@pages": path.resolve(rootDir, "src/slices/pages"),
+      "@app": path.resolve(rootDir, "src/slices/app"),
     },
     ...(process.env.VITEST
       ? { conditions: ["browser"] }
@@ -47,5 +48,11 @@ export default defineConfig({
     setupFiles: ["./src/test/setup.ts"],
     include: ["src/**/*.{test,spec}.{js,ts}"],
     clearMocks: true,
+    alias: {
+      "webextension-polyfill": path.resolve(
+        rootDir,
+        "src/test/mocks/webextension-polyfill.ts",
+      ),
+    },
   },
 });

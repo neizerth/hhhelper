@@ -9,8 +9,7 @@ export const startContentApp = () => {
   const router = new MessageRouter();
 
   router.on("fill-document", (content) => {
-    console.log("[hhhelper] fillDocument", content);
-    fillDocument({
+    void fillDocument({
       document,
       content,
     });

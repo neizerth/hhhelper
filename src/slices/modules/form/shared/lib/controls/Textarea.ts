@@ -1,33 +1,32 @@
 import type { IFormControl } from "../../model";
 import { Field } from "../Field";
+import { fillTextControlValue } from "../value";
 
 export class TextArea
   extends Field<HTMLTextAreaElement>
   implements IFormControl<HTMLTextAreaElement, string>
 {
+  #label: string | null = null;
+  static selector = "textarea";
+
   get value() {
     return this.node.value;
   }
 
-  static is(node: Node): node is HTMLTextAreaElement {
-    return node instanceof HTMLTextAreaElement;
-  }
-
   get label() {
+    if (this.#label) {
+      return this.#label;
+    }
     const id = this.node.getAttribute("aria-labelledby");
     if (!id) {
       return null;
     }
     const label = document.getElementById(id);
-    return label?.textContent ?? null;
+    this.#label = label?.textContent?.replace(/\s+/g, " ").trim() ?? null;
+    return this.#label;
   }
 
   fill(value: string) {
-    if (this.value === value) {
-      return;
-    }
-
-    this.node.value = value;
-    this.node.dispatchEvent(new InputEvent("input"));
+    return fillTextControlValue(this.node, value);
   }
 }

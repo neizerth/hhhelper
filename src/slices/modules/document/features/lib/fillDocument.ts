@@ -1,9 +1,5 @@
-import {
-  Checkbox,
-  Input,
-  TextArea,
-} from "@/slices/modules/form/shared/lib";
 import { MonthSelect, RegionSelect } from "@/slices/modules/form/entities/lib";
+import { Checkbox, Input, TextArea } from "@/slices/modules/form/shared/lib";
 import { parseContent } from "@/slices/modules/form/shared/lib/content";
 import type { IFormControl } from "@/slices/modules/form/shared/model";
 import { equalsIgnoreCase } from "@/slices/shared/util";

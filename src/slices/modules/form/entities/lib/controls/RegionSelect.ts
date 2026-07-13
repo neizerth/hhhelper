@@ -1,6 +1,6 @@
 import { equalsIgnoreCase, waitFor } from "@/slices/shared/util";
-import { Field } from "../../../shared/lib/Field";
 import { Radio } from "../../../shared/lib/controls/Radio";
+import { Field } from "../../../shared/lib/Field";
 import { fillTextControlValue } from "../../../shared/lib/value";
 import type { IFormControl } from "../../../shared/model";
 

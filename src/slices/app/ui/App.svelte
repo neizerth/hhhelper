@@ -10,6 +10,11 @@
 
   let value = $state("");
   let ready = $state(false);
+  let textfield: Textfield;
+
+  void document.fonts?.ready.then(() => {
+    textfield?.layout();
+  });
 
   void loadValue().then((content) => {
     value = content;
@@ -42,6 +47,7 @@
     <Content>
       <div class="actions">
         <Textfield
+          bind:this={textfield}
           bind:value
           textarea
           label="Текст"

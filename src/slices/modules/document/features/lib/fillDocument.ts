@@ -1,5 +1,6 @@
 import {
   CompanyScopeSelect,
+  CVSelect,
   MonthSelect,
   RegionSelect,
 } from "@/slices/modules/form/entities/lib";
@@ -21,6 +22,7 @@ const controls = [
   MonthSelect,
   RegionSelect,
   CompanyScopeSelect,
+  CVSelect,
 ];
 
 export const fillDocument = async ({ document, content }: Options) => {

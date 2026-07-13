@@ -1,9 +1,9 @@
 import {
   Checkbox,
   Input,
-  MonthSelect,
   TextArea,
 } from "@/slices/modules/form/shared/lib";
+import { MonthSelect, RegionSelect } from "@/slices/modules/form/entities/lib";
 import { parseContent } from "@/slices/modules/form/shared/lib/content";
 import type { IFormControl } from "@/slices/modules/form/shared/model";
 import { equalsIgnoreCase } from "@/slices/shared/util";
@@ -14,7 +14,7 @@ type Options = {
   content: string;
 };
 
-const controls = [Input, TextArea, Checkbox, MonthSelect];
+const controls = [Input, TextArea, Checkbox, MonthSelect, RegionSelect];
 
 export const fillDocument = async ({ document, content }: Options) => {
   const values = parseContent(content);
